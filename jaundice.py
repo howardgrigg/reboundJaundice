@@ -11,11 +11,19 @@ print "Content-type: text/html\n\n"
 form=cgi.FieldStorage()
 
 try:
+  unitCode = int(form["unitCode"].value)
+except:
+  print("Error: Unit's not selected - odd this shouldn't happen, try refreshing")
+  quit()
+  
+try:
   currentlevel = int(form["sbr"].value)
-  currentlevel = currentlevel*0.058479 # convert to american units, micromol/L -> mg/dL
 except:
   print("Error: Please enter an SBR - number only")
   quit()
+
+if unitCode == 0:
+  currentlevel = currentlevel*0.058479 # convert to american units, micromol/L -> mg/dL
 
 try:
   gestation = int(form["gestation"].value)
@@ -36,7 +44,7 @@ except:
   quit()
 
 if hoursOld < 0 or hoursOld > 168:
-	print("Error: Please choose an age less than 7 days")
+	print("Error: Please choose an age less than 7 days - this formula is not validated for anything beyond 7 days")
 	exit()
 
 try:
@@ -70,12 +78,18 @@ elif risk == 2:
 elif risk == 3:
 	threshold = 0.0000000234*hours4-0.0000055621*hours3-0.0004163134*hours2+0.1830601843*hoursOld+3.7994
 
-print("Phototherapy threshold = " + str("{0:.0f}".format(threshold/0.058479))+", ")
-diff = currentlevel/0.058479 - threshold/0.058479
-if diff < 0:
-	print("currently " + str("{0:.0f}".format(diff)) + " below the line.<br />")
+
+if unitCode == 0:
+  print("Phototherapy threshold = " + str("{0:.0f}".format(threshold/0.058479))+", ")
+  diff = currentlevel/0.058479 - threshold/0.058479
 else:
-	print("currently " + str("{0:.0f}".format(diff)) + " above the line.<br />")
+  print("Phototherapy threshold = " + str("{0:.2f}".format(threshold))+", ")
+  diff = currentlevel - threshold
+
+if diff < 0:
+	print("currently " + str("{0:.1f}".format(diff)) + " below the line.<br />")
+else:
+	print("currently " + str("{0:.1f}".format(diff)) + " above the line.<br />")
 
 ## Ceaseing threshold
 

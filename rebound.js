@@ -13,9 +13,18 @@ $("#rebound").submit(function(e) {
   });
   e.preventDefault(); // avoid to execute the actual submit of the form.
 });
-
-$("#recalculate").click(function(e) {
-  $('#rebound').show();
-  $('#result').hide();
-  $("#result-body").html('<img src="/loading.svg" class="mx-auto d-block">');
+$( document ).ready(function() {
+  $("#recalculate").click(function(e) {
+    $('#rebound').show();
+    $('#result').hide();
+    $("#result-body").html('<img src="/loading.svg" class="mx-auto d-block">');
+  });
+  $("#mols").click(function(e) {
+    $("#units").html($(this).html());
+    $("#unitCode").val('0');
+  });
+  $("#mgs").click(function(e) {
+    $("#units").html($(this).html());
+    $("#unitCode").val('1');
+  });
 });

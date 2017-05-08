@@ -30,11 +30,12 @@
 				<div class="input-group">
 					<input type="text" pattern="[0-9]*" class="form-control" id="sbr" name ="sbr" value="">
 					<div class="input-group-btn">
-						<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&#xb5;mol/L
+						<button type="button" id="units" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&#xb5;mol/L
 						</button>
+						<div class="hidden"><input type="text" pattern="[0-9]*" class="form-control" id="unitCode" name ="unitCode" value="0"></div>
 						<div class="dropdown-menu">
-		          <a class="dropdown-item" href="#">&#xb5;mol/L</a>
-		          <a class="dropdown-item" href="#">mg/dL</a>
+		          <button type="button" id="mols" class="dropdown-item">&#xb5;mol/L</button>
+		          <button type="button" id="mgs" class="dropdown-item" href="#">mg/dL</button>
 		        </div>
 					</div>
 				</div>

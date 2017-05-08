@@ -27,4 +27,10 @@ $( document ).ready(function() {
     $("#units").html($(this).html());
     $("#unitCode").val('1');
   });
+  $('[data-toggle="popover"]').popover(); // close on body click // iOS doesnt recognise 'body' click so using :not 
+  $(':not(#anything)').on('click', function (e) { $('[data-toggle="popover"]').each(function () { if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) { $(this).popover('hide'); } }); });
+  $('.popover-dismiss').popover({
+    trigger: 'focus'
+  })
 });
+

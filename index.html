@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="apple-touch-icon" href="/jaundiceIcon180.png">
+	<meta name="apple-mobile-web-app-title" content="Jaundice Calc">
+	
+	<title>Neonatal Jaundice Rebound Calculator</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<script src="https://use.fontawesome.com/0d1b7c921e.js"></script>
+	
+	<link rel="stylesheet" href="/rebound.css" >
+	
+</head>
+<body>
+	<div class="jumbotron">
+	  <p class="lead">This is a simple tool to calculate the chance of rebounding after stopping phototherapy in neonates.</p>
+	  <a class="btn btn-primary btn-sm" href="/info.html" role="button">Learn more</a>
+	</div>
+	<div class="container-fluid">		
+		<form id="rebound">
+			<div class="form-group">
+				<label for="sbr">Current SBR</label>
+				<div class="input-group">
+					<input type="text" pattern="[0-9.]*" class="form-control" id="sbr" name ="sbr" value="">
+					<div class="input-group-btn">
+						<button type="button" id="units" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&#xb5;mol/L
+						</button>
+						<div class="hidden"><input type="text" pattern="[0-9]*" class="form-control" id="unitCode" name ="unitCode" value="0"></div>
+						<div class="dropdown-menu">
+		          <button type="button" id="mols" class="dropdown-item">&#xb5;mol/L</button>
+		          <button type="button" id="mgs" class="dropdown-item" href="#">mg/dL</button>
+		        </div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="gest">Gestation</label>
+				<div class="btn-group" id="gest" data-toggle="buttons">
+					<label class="btn btn-outline-danger">
+						<input type="radio" name="gestation" value="35">35
+					</label>
+					<label class="btn btn-outline-warning">
+						<input type="radio" name="gestation" value="36">36
+					</label>
+					<label class="btn btn-outline-info">
+						<input type="radio" name="gestation" value="37">37
+					</label>
+					<label class="btn btn-outline-success active">
+						<input type="radio" name="gestation" value="38" checked>38+
+					</label>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="risks">Risk factors present </label>
+				<div class="btn-group" id="gest" data-toggle="buttons">
+					<label class="btn btn-outline-success active">
+						<input type="radio" name="risk" value="0" checked>No
+					</label>
+					<label class="btn btn-outline-danger">
+						<input type="radio" name="risk" value="1">Yes
+					</label>
+				</div>
+				<span class="info pull-right"><a tabindex="0" class="popover-dismiss" data-toggle="popover" data-trigger="focus" data-html="true" title="Major Risk Factors" data-placement="left" data-content="
+  				<ul>
+            <li>Isoimmune Hemolytic Disease</li>
+            <li>G6PD deficiency</li>
+            <li>Asphyxia</li>
+            <li>Significant lethargy</li>
+            <li>Temperature instability</li>
+            <li>Sepsis</li>
+            <li>Acidosis</li>
+            <li>Albumin < 3.0 g/dL</li>
+          </ul>
+        "><i class="fa fa-info-circle" aria-hidden="true"></i></a></span>
+			</div>
+			
+			<div class="form-group">
+				<label for="hoursStart">Age when phototherapy commenced</label>
+				<div class="input-group">
+					<input type="text" pattern="[0-9]*" id="hoursStart" class="form-control" name="photoStarted" value="">
+					<span class="input-group-addon" id="basic-addon1">hours</span>
+				</div>
+			</div>
+	
+			<div class="form-group">
+				<label>Age at latest SBR</label>
+				<div class="input-group">
+					<input type="text" pattern="[0-9]*" class="form-control" name="hoursOld" value="">
+					<span class="input-group-addon" id="basic-addon1">hours</span>
+				</div>
+			</div>
+
+			<input class="btn btn-primary btn-block" type="submit" value="Calculate">  
+			<hr class="my-4">
+		</form>
+		
+	</div>
+	<div id="result" class="container-fluid">
+		<p id="result-body"><img src="/loading.svg" class="mx-auto d-block"></p>
+		<input id="recalculate" class="btn btn-info" value="Recalculate"> 
+	</div>
+	
+	<script src="/rebound.js"></script>
+	<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//analytics.gri.gg/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 2]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//analytics.gri.gg/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+</body>
+</html>

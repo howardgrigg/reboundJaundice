@@ -1,0 +1,12 @@
+#result{
+	display: none;
+}
+.hidden{
+  display: none;
+}
+.info{
+  font-size: 1.3em;
+}
+.container-fluid{
+	max-width: 600px;
+}
